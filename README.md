@@ -17,18 +17,19 @@ A full automation system for rerolling guest accounts in *Mirren Star Legends* u
 
 ## 📁 Project Structure
 
-Mirren_Bot/
-├── gui_main.py # GUI entry point
-├── parallel_runner.py # Bot logic orchestrator
-├── clone_utils.py # Instance cloning/launching
-├── adb_utils.py # ADB commands (input name, screenshot, close)
-├── trigger_macro.py # Macro hotkey triggering
-├── proxy_utils.py # Proxy handling with Airproxy + fallback
-├── config.py # Configuration settings
-├── macros/ # LDPlayer macro scripts
-├── screenshots/ # Output screenshots
-├── ProxifierProfiles/ # .ppx config files (if using proxies)
-└── requirements.txt # Python dependencies
+| File / Folder         | Purpose                                           |
+|----------------------|--------------------------------------------------|
+| `gui_main.py`         | GUI entry point                                   |
+| `parallel_runner.py`  | Bot logic orchestrator, runs batch cycles        |
+| `clone_utils.py`      | Instance cloning and launching utilities          |
+| `adb_utils.py`        | ADB commands: input guest name, screenshots, close instances |
+| `trigger_macro.py`    | Macro hotkey triggering for emulator windows      |
+| `proxy_utils.py`      | Proxy handling with Airproxy API + localhost fallback |
+| `config.py`           | Configuration settings and constants               |
+| `macros/`             | LDPlayer macro scripts used in automation          |
+| `screenshots/`        | Folder for output screenshots                       |
+| `ProxifierProfiles/`  | Proxifier `.ppx` config files (for proxy routing)  |
+| `requirements.txt`    | Python dependencies for environment setup          |
 
 ---
 
