@@ -1,12 +1,9 @@
-LDPLAYER_PATH = "C:/LDPlayer/LDPlayer9"
-BASE_INSTANCE = "LDPlayer"  # This
+LDPLAYER_PATH = "D:/LDPlayer/LDPlayer9"
+BASE_INSTANCE = "LDPlayer"
 PACKAGE_NAME = "/storage/emulated/0/Android/data/com.mirrenapjob.eu"
-
-NAME_PREFIX = "Mirren"
+NAME_PREFIX = "North"
 CYCLE_PADDING = 3
-
-TOTAL_ACCOUNTS = 1  # This
-INSTANCES_PER_BATCH = 1 # This
-
-MACRO_DIR = "C:/Users/Killua/Desktop/Mirren_Botmacros"
-SCREENSHOT_DIR = "C:/Users/Killua/Desktop/Mirren_Bot/screenshots"
+TOTAL_ACCOUNTS = 2
+INSTANCES_PER_BATCH = 2
+MACRO_DIR = "D:/Mirren_Bot/macros"
+SCREENSHOT_DIR = "D:/Mirren_Bot/screenshots"

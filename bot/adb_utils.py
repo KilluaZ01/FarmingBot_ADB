@@ -2,19 +2,19 @@ import os
 import subprocess
 from config import SCREENSHOT_DIR
 
-def clear_app_data(device_id, package_name):
-    os.system(f'ldconsole.exe adb --name {device_id} --command "shell rm -rf {package_name}')
+def clear_app_data(instance_name, package_name):
+    os.system(f'ldconsole.exe adb --name {instance_name} --command "shell rm -rf {package_name}"')
 
 def close_instance(instance_name):
     os.system(f'ldconsole.exe quit --name {instance_name}')
 
-def input_guest_name(device_id, name):
+def input_guest_name(instance_name, name):
     # Type the name
-    cmd_input_name = f'ldconsole.exe adb --name {device_id} --command "shell input text helloworld101"'
+    cmd_input_name = f'ldconsole.exe adb --name {instance_name} --command "shell input text {name}"'
     os.system(cmd_input_name)
     
     # Press Enter key
-    cmd_press_enter = f'ldconsole.exe adb --name {device_id} --command "shell input keyevent 66"'
+    cmd_press_enter = f'ldconsole.exe adb --name {instance_name} --command "shell input tap 835 465"'
     os.system(cmd_press_enter)
 
 def take_screenshot(instance_name, filename):
