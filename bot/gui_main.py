@@ -15,23 +15,22 @@ class BotGUI(tk.Tk):
         self.entry_base_instance.insert(0, "LDPlayer")  # Default
         self.entry_base_instance.grid(row=0, column=1)
 
-        # Row 1 - Proxy API Key
-        tk.Label(self, text="Proxy API Key:").grid(row=1, column=0, sticky='e')
-        self.entry_proxy_api = tk.Entry(self)
-        self.entry_proxy_api.insert(0, "your_proxy_proxy_api")  # Empty by default
-        self.entry_proxy_api.grid(row=1, column=1)
-
         # Row 2 - Total Accounts
-        tk.Label(self, text="Total Accounts:").grid(row=2, column=0, sticky='e')
+        tk.Label(self, text="Total Accounts:").grid(row=1, column=0, sticky='e')
         self.entry_total_accounts = tk.Entry(self)
         self.entry_total_accounts.insert(0, "2")
-        self.entry_total_accounts.grid(row=2, column=1)
+        self.entry_total_accounts.grid(row=1, column=1)
 
         # Row 3 - Batch Size
-        tk.Label(self, text="Batch Size:").grid(row=3, column=0, sticky='e')
+        tk.Label(self, text="Batch Size:").grid(row=2, column=0, sticky='e')
         self.entry_batch_size = tk.Entry(self)
         self.entry_batch_size.insert(0, "1")
-        self.entry_batch_size.grid(row=3, column=1)
+        self.entry_batch_size.grid(row=2, column=1)
+
+        tk.Label(self, text="Guest Name:").grid(row=3, column=0, sticky='e')
+        self.entry_guest_name = tk.Entry(self)
+        self.entry_guest_name.insert(0, "Fati")
+        self.entry_guest_name.grid(row=3, column=1)
 
         # Start Button
         self.btn_start = tk.Button(self, text="Start Bot", command=self.start_bot_thread)
@@ -39,7 +38,7 @@ class BotGUI(tk.Tk):
 
         # Log Area
         self.log_area = scrolledtext.ScrolledText(self, width=60, height=20, state='disabled')
-        self.log_area.grid(row=5, column=0, columnspan=2)
+        self.log_area.grid(row=6, column=0, columnspan=2)
 
     def log(self, message):
         self.log_area.configure(state='normal')
@@ -50,9 +49,9 @@ class BotGUI(tk.Tk):
     def start_bot_thread(self):
         try:
             base_instance = self.entry_base_instance.get()
-            proxy_api = self.entry_proxy_api.get()
             total_accounts = int(self.entry_total_accounts.get())
             batch_size = int(self.entry_batch_size.get())
+            guest_name = self.entry_guest_name.get()
 
             if total_accounts < 1 or batch_size < 1:
                 raise ValueError("Values must be positive integers.")
@@ -65,13 +64,13 @@ class BotGUI(tk.Tk):
         self.btn_start.config(state='disabled')
         threading.Thread(
             target=self.run_bot,
-            args=(base_instance, proxy_api, total_accounts, batch_size),
+            args=(base_instance, total_accounts, batch_size, guest_name),
             daemon=True
         ).start()
 
-    def run_bot(self, base_instance, proxy_api, total_accounts, batch_size):
+    def run_bot(self, base_instance, total_accounts, batch_size, guest_name):
         try:
-            run_all_batches(base_instance, proxy_api, total_accounts, batch_size, self.log)
+            run_all_batches(base_instance, total_accounts, batch_size, guest_name, self.log)
             self.log("✅ Bot run completed successfully")
         except Exception as e:
             self.log(f"❌ Error during bot run: {e}")

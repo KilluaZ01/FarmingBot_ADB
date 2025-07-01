@@ -1,5 +1,4 @@
 LDPLAYER_PATH = "D:/LDPlayer/LDPlayer9"
-BASE_INSTANCE = "LDPlayer"
 PACKAGE_NAME = "/storage/emulated/0/Android/data/com.mirrenapjob.eu"
 NAME_PREFIX = "North"
 CYCLE_PADDING = 3
