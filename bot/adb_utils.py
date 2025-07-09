@@ -17,6 +17,11 @@ def input_guest_name(instance_name, name):
     cmd_press_enter = f'ldconsole.exe adb --name {instance_name} --command "shell input tap 835 465"'
     os.system(cmd_press_enter)
 
+def tap_macro(instance_name, x, y):
+    tap_command = f'ldconsole.exe adb --name {instance_name} --command "shell input tap {x} {y}"'
+    os.system(tap_command)
+
+
 def take_screenshot(instance_name):
     remote_path = "/sdcard/result.png"
     local_path = os.path.join(SCREENSHOT_DIR, f"{instance_name}.png")
