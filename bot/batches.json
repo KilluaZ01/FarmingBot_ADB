@@ -1,0 +1,32 @@
+[
+  {
+    "batch_id": "batch_001",
+    "instance_names": [
+      "Base_Instance-1",
+      "Base_Instance-2"
+    ],
+    "guest_names": [
+      "Meow585X001",
+      "Meow334X002"
+    ],
+    "login_day": 1,
+    "last_login": "2025-07-15",
+    "summon_done": false,
+    "screenshot_saved": false
+  },
+  {
+    "batch_id": "batch_002",
+    "instance_names": [
+      "Base_Instance-3",
+      "Base_Instance-4"
+    ],
+    "guest_names": [
+      "Meow777X003",
+      "Meow870X004"
+    ],
+    "login_day": 1,
+    "last_login": "2025-07-15",
+    "summon_done": false,
+    "screenshot_saved": false
+  }
+]

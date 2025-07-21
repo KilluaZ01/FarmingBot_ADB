@@ -1,33 +1,37 @@
-import pygetwindow as gw
-import pyautogui
+import os
 import time
 
-def trigger_macro(instance_title, key1, key2):
-    windows = [w for w in gw.getWindowsWithTitle(instance_title) if instance_title in w.title]
-    if not windows:
-        print(f"[{instance_title}] ❌ Window not found.")
-        return
+def tap_macro(instance_name, x, y):
+    tap_command = f'ldconsole.exe adb --name {instance_name} --command "shell input tap {x} {y}"'
+    os.system(tap_command)
 
-    try:
-        win = windows[0]
-        if win.isMinimized:
-            win.restore()
-            time.sleep(0.5)
+def swipe_macro(instance_name, x1, y1, x2, y2):
+    tap_command = f'ldconsole.exe adb --name {instance_name} --command "shell input touchscreen swipe {x1} {y1} {x2} {y2} 1000"'
+    os.system(tap_command)
 
-        retries = 3
-        for attempt in range(retries):
-            win.activate()
-            time.sleep(0.7)
-            if win.isActive:
-                break
-            else:
-                print(f"[{instance_title}] Attempt {attempt+1} to activate window failed.")
-        else:
-            print(f"[{instance_title}] ⚠️ Failed to activate window after {retries} attempts.")
-            return
+def claim_7_day_rewards(instance_names, log_func=print):
+    log_func("📦 Claiming 7-Day Login Reward...")
 
-        print(f"[{instance_title}] Sending {key1} + {key2}")
-        pyautogui.hotkey(key1, key2)
+    for instance_name in instance_name:
+        tap_macro(instance_name, 1171, 104)
+    time.sleep(10)
 
-    except Exception as e:
-        print(f"[{instance_title}] ⚠️ Error while triggering macro: {e}")
+    for instance_name in instance_name:
+        tap_macro(instance_name, 1171, 104)
+    time.sleep(10)
+
+    for instance_name in instance_name:
+        tap_macro(instance_name, 1171, 104)
+    time.sleep(10)
+
+def claim_14_day_rewards(instance_names, log_func=print):
+    log_func("🎁 Claiming 14-Day Login Reward...")
+
+    for instance_name in instance_name:
+        tap_macro(instance_name, 1171, 104)
+    time.sleep(10)
+
+    for instance in instance_names:
+        os.system(f'ldconsole.exe quit --name {instance}')
+    time.sleep(5)
+

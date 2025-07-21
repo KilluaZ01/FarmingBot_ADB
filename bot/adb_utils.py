@@ -8,6 +8,16 @@ def clear_app_data(instance_name, package_name):
 def close_instance(instance_name):
     os.system(f'ldconsole.exe quit --name {instance_name}')
 
+def close_app(instance_name):
+    os.system(f'ldconsole.exe adb --name {instance_name} --command "shell am force-stop "')
+
+def delete_instance(instance_name):
+    # First, stop the instance if it's running
+    os.system(f'ldconsole.exe quit --name {instance_name}')
+    
+    # Then, delete the instance
+    os.system(f'ldconsole.exe remove --name {instance_name}')
+
 def input_guest_name(instance_name, name):
     # Type the name
     cmd_input_name = f'ldconsole.exe adb --name {instance_name} --command "shell input text {name}"'
@@ -16,11 +26,6 @@ def input_guest_name(instance_name, name):
     # Press Enter key
     cmd_press_enter = f'ldconsole.exe adb --name {instance_name} --command "shell input tap 835 465"'
     os.system(cmd_press_enter)
-
-def tap_macro(instance_name, x, y):
-    tap_command = f'ldconsole.exe adb --name {instance_name} --command "shell input tap {x} {y}"'
-    os.system(tap_command)
-
 
 def take_screenshot(instance_name):
     remote_path = "/sdcard/result.png"
