@@ -1,31 +1,39 @@
-import random
-import string
-from datetime import datetime
+import os
+import re
+import subprocess
 
-used_names = set()
+# Path to LDPlayer config folder
+CONFIG_PATH = r"C:\LDPlayer\LDPlayer9\vms\config"
 
-def jumble_string(s):
-    """Randomly shuffle or mutate parts of the input string"""
-    chars = list(s)
-    random.shuffle(chars)
-    
-    # Add random mutation (flip case, insert digits)
-    for i in range(random.randint(1, 3)):
-        pos = random.randint(0, len(chars)-1)
-        chars[pos] = random.choice(string.ascii_letters + string.digits)
-    return ''.join(chars)
+# 2. Process config files
+for filename in os.listdir(CONFIG_PATH):
+    if filename.startswith("leidian") and filename.endswith(".config") and filename != "leidians.config":
+        file_path = os.path.join(CONFIG_PATH, filename)
+        # print(f"Processing {filename}...")
 
-def generate_unique_guest_name(index, prefix):
-    """Generate a unique, jumbled guest name based on a prefix"""
-    max_attempts = 1000
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
 
-    for _ in range(max_attempts):
-        base = f"{prefix}_{index}_{datetime.now().strftime('%f')[-4:]}"
-        jumbled = jumble_string(base)
-        if jumbled not in used_names:
-            used_names.add(jumbled)
-            print(f"[NameGen] Index={index}, Result={jumbled}")
-            return jumbled
-        
-if __name__ == "__main__":
-    generate_unique_guest_name(1, "A")
+        # Ensure CRLF line endings
+        content = content.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+
+        # Find macAddress line
+        new_lines = []
+        adb_added = False
+        for line in content:
+            new_lines.append(line)
+            if '"propertySettings.macAddress"' in line and not adb_added:
+                new_lines.append('    "basicSettings.adbDebug": 1,')
+                adb_added = True
+
+        if adb_added:
+            # Join with CRLF and save without BOM
+            new_content = "\r\n".join(new_lines)
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            # print(f"  adbDebug added to {filename}")
+        else:
+            print(f"  macAddress not found in {filename} — skipped.")
+
+# print("Done! Now start LDPlayer and check if ADB Debug is enabled.")
+
